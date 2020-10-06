@@ -4,39 +4,89 @@ import java.util.Set;
 public class ProblemFarmer extends Problem {
 
   static final int n = 4;
-  static final int Farmer = 0;
+  
+  static final int Bank = 0;
   static final int Wolf = 1;
   static final int Goat = 2;
   static final int Cabbage = 3;
 
   boolean goal_test(Object state) {
     StateFarmer fstate = (StateFarmer) state;
-    if (fstate.array[Farmer] == 1 && fstate.array[Wolf] == 1 && fstate.array[Goat] == 1 && fstate.array[Cabbage] == 1 ){ return true;}
-    else {return false;}
+    if (fstate.array[Bank] == 1 && fstate.array[Wolf] == 1 && fstate.array[Goat] == 1 && fstate.array[Cabbage] == 1 ) { return true; } 
+    else { return false; }
   }
 
   Set<Object> getSuccessors(Object state) {
-
+  
     Set<Object> set = new HashSet<Object>();
-    StateFarmer fstate = (StateFarmer) state;
+    StateFarmer s = (StateFarmer) state;
     StateFarmer successor_state;
 
-    int total = 15;
-    while (total-- >= 0) {
-      String arr = String.format("%4s", Integer.toBinaryString(total)).replace(' ', '0');
-      successor_state = new StateFarmer(fstate);
-      successor_state.array[Farmer] = Character.getNumericValue(arr.charAt(0));
-      successor_state.array[Wolf] = Character.getNumericValue(arr.charAt(1));
-      successor_state.array[Goat] = Character.getNumericValue(arr.charAt(2));
-      successor_state.array[Cabbage] = Character.getNumericValue(arr.charAt(3));
-      if (isValid(successor_state))set.add(successor_state);
+    if(!isValid(s)) {return set;}
+    else {
+
+      if(s.array[Bank] == 1){
+        successor_state = new StateFarmer(s);
+        successor_state.array[Bank] = 0;
+        set.add(successor_state);
+      }
+
+      if(s.array[Bank] == 0){
+        successor_state = new StateFarmer(s);
+        successor_state.array[Bank] = 1;
+        set.add(successor_state);
+      }
+
+      if (s.array[Bank] == 1 && s.array[Wolf] == 1){
+        successor_state = new StateFarmer(s);
+        successor_state.array[Bank] = 0;
+        successor_state.array[Wolf] = 0;
+        set.add(successor_state);
+      }
+
+      if (s.array[Bank] == 0 && s.array[Wolf] == 0){
+        successor_state = new StateFarmer(s);
+        successor_state.array[Bank] = 1;
+        successor_state.array[Wolf] = 1;
+        set.add(successor_state);
+      }
+
+      if (s.array[Bank] == 1 && s.array[Goat] == 1){
+        successor_state = new StateFarmer(s);
+        successor_state.array[Bank] = 0;
+        successor_state.array[Goat] = 0;
+        set.add(successor_state);
+      }
+
+      if (s.array[Bank] == 0 && s.array[Goat] == 0){
+        successor_state = new StateFarmer(s);
+        successor_state.array[Bank] = 1;
+        successor_state.array[Goat] = 1;
+        set.add(successor_state);
+      }
+
+      if (s.array[Bank] == 1 && s.array[Cabbage] == 1){
+        successor_state = new StateFarmer(s);
+        successor_state.array[Bank] = 0;
+        successor_state.array[Cabbage] = 0;
+        set.add(successor_state);
+      }
+
+      if (s.array[Bank] == 0 && s.array[Cabbage] == 0){
+        successor_state = new StateFarmer(s);
+        successor_state.array[Bank] = 1;
+        successor_state.array[Cabbage] = 1;
+        set.add(successor_state);
+      }
     }
     return set;
   }
 
   public boolean isValid(StateFarmer state) {
-      if (state.array[Wolf] == 0 && state.array[Goat] == 0 && state.array[Cabbage] == 1){return false;} 
-      if (state.array[Wolf] == 1 && state.array[Goat] == 0 && state.array[Cabbage] == 0){return false;} 
+      if (state.array[Bank] == 0 && state.array[Wolf] == 1 && state.array[Goat] == 1){return false;} 
+      if (state.array[Bank] == 1 && state.array[Wolf] == 0 && state.array[Goat] == 0){return false;}
+      if (state.array[Bank] == 0 && state.array[Goat] == 1 && state.array[Cabbage] == 1){return false;}
+      if (state.array[Bank] == 1 && state.array[Goat] == 0 && state.array[Cabbage] == 0){return false;}
       return true;
   }
 
@@ -46,6 +96,8 @@ public class ProblemFarmer extends Problem {
 
   public static void main(String [] args) throws Exception{
     
+    System.out.println("Start Testing ...");
+
     ProblemFarmer problem = new ProblemFarmer();
     int[] array = new int[n];
     problem.initialState = new StateFarmer(array);
@@ -66,8 +118,8 @@ public class ProblemFarmer extends Problem {
 		System.out.println("GreedyBestGraphSearch:\t\t" + search.GreedyBestFirstGraphSearch());
 		System.out.println("AstarGraphSearch:\t\t" + search.AstarGraphSearch());
 		
-		// System.out.println("\n\nIterativeDeepening----------------------");
-		// //System.out.println("IterativeDeepeningTreeSearch:\t" + search.IterativeDeepeningTreeSearch());
-		// System.out.println("IterativeDeepeningGraphSearch:\t" + search.IterativeDeepeningGraphSearch());
+		System.out.println("\n\nIterativeDeepening----------------------");
+		//System.out.println("IterativeDeepeningTreeSearch:\t" + search.IterativeDeepeningTreeSearch());
+		//System.out.println("IterativeDeepeningGraphSearch:\t" + search.IterativeDeepeningGraphSearch());
   }
 }

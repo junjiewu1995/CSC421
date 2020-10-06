@@ -68,27 +68,24 @@ public class Search {
 	int cnt; //count expansions
 	List<Node> node_list; //store all nodes ever generated
 	Node initialNode; //initial node based on initial state
-	//
 	
 	private String TreeSearch(Frontier frontier) {
+
 		cnt = 0; 
 		node_list = new ArrayList<Node>();
-		
 		initialNode = MakeNode(problem.initialState); 
 		node_list.add( initialNode );
 		
 		frontier.insert( initialNode );
+
 		while(true) {
-			
-			if(frontier.isEmpty())
-				return null;
-			
+
+			if(frontier.isEmpty()) return null;
 			Node node = frontier.remove();
-			
-			if( problem.goal_test(node.state) )
-				return Solution(node);
-			
+
+			if( problem.goal_test(node.state) ) return Solution(node);
 			frontier.insertAll(Expand(node,problem));
+
 			cnt++;
 		}
 	}
@@ -151,7 +148,6 @@ public class Search {
 
 	private String GraphSearchDepthLimited(Frontier frontier, int limit) {
 		//TODO
-		
 		cnt = 0; 
 		node_list = new ArrayList<Node>();
 		
@@ -160,11 +156,9 @@ public class Search {
 		
 		Set<Object> explored = new HashSet<Object>(); //empty set
 		frontier.insert( initialNode );
+
 		while(true) {
-			
-			if(frontier.isEmpty())
-				return null;
-			
+			if(frontier.isEmpty()) return null;
 			Node node = frontier.remove();
 			
 			if( problem.goal_test(node.state) )
@@ -172,7 +166,6 @@ public class Search {
 			
 			if( !explored.contains(node.state) ) {
 				explored.add(node.state);
-
 					if(node.depth < limit) {
 						frontier.insertAll(Expand(node,problem));
 						cnt++;
@@ -192,9 +185,10 @@ public class Search {
 	}
 	
 	private Set<Node> Expand(Node node, Problem problem) {
+	
 		node.order = cnt;
-		
 		Set<Node> successors = new HashSet<Node>(); //empty set
+		
 		Set<Object> successor_states = problem.getSuccessors(node.state);
 		
 		for(Object result : successor_states) {
@@ -205,7 +199,7 @@ public class Search {
 			s.depth = node.depth + 1; 
 			successors.add(s);
 			
-			node_list.add( s );
+			node_list.add(s);
 		}
 		
 		return successors;
@@ -213,7 +207,6 @@ public class Search {
 	
 	//Create a string to print solution. 
 	private String Solution(Node node) {
-		
 		String solution_str = "(cost=" + node.path_cost + ", expansions=" + cnt + ")\t";
 		
 		Deque<Object> solution = new ArrayDeque<Object>();

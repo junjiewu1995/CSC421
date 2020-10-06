@@ -3,19 +3,18 @@ import java.util.Set;
 
 public class ProblemNPuzzle extends Problem {
     
-	boolean goal_test(Object state) {
-        StateNPuzzle puzzle_state = (StateNPuzzle) state;
-        
-        int k=0;
-        for(int i=0; i<puzzle_state.N; i++)
-        	for(int j=0; j<puzzle_state.N; j++) {
-        		if(puzzle_state.puzzleArray[i][j] != k)
-        			return false;
-        		k++;
-        	}
-        
-        return true;
-	}
+		boolean goal_test(Object state) {
+					StateNPuzzle puzzle_state = (StateNPuzzle) state;
+					int k=0;
+					for(int i=0; i<puzzle_state.N; i++) {
+						for(int j=0; j<puzzle_state.N; j++) {
+							if(puzzle_state.puzzleArray[i][j] != k)
+								return false;
+							k++;
+						}
+					}
+					return true;
+		}
   
     Set<Object> getSuccessors(Object state) {
     	
@@ -31,7 +30,6 @@ public class ProblemNPuzzle extends Problem {
         	ss.puzzleArray[i0][j0-1] = 0;
         	ss.puzzleArray[i0][j0]   = s.puzzleArray[i0][j0-1];
         	ss.j0--;
-        	//System.out.println(ss);
         	set.add(ss);
         }
 
