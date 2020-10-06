@@ -37,6 +37,20 @@ public class ProblemFarmer extends Problem {
         set.add(successor_state);
       }
 
+      if (s.array[Bank] == 0 && s.array[Goat] == 0){
+        successor_state = new StateFarmer(s);
+        successor_state.array[Bank] = 1;
+        successor_state.array[Goat] = 1;
+        set.add(successor_state);
+      }
+
+      if (s.array[Bank] == 0 && s.array[Cabbage] == 0){
+        successor_state = new StateFarmer(s);
+        successor_state.array[Bank] = 1;
+        successor_state.array[Cabbage] = 1;
+        set.add(successor_state);
+      }
+
       if (s.array[Bank] == 1 && s.array[Wolf] == 1){
         successor_state = new StateFarmer(s);
         successor_state.array[Bank] = 0;
@@ -58,12 +72,6 @@ public class ProblemFarmer extends Problem {
         set.add(successor_state);
       }
 
-      if (s.array[Bank] == 0 && s.array[Goat] == 0){
-        successor_state = new StateFarmer(s);
-        successor_state.array[Bank] = 1;
-        successor_state.array[Goat] = 1;
-        set.add(successor_state);
-      }
 
       if (s.array[Bank] == 1 && s.array[Cabbage] == 1){
         successor_state = new StateFarmer(s);
@@ -72,12 +80,7 @@ public class ProblemFarmer extends Problem {
         set.add(successor_state);
       }
 
-      if (s.array[Bank] == 0 && s.array[Cabbage] == 0){
-        successor_state = new StateFarmer(s);
-        successor_state.array[Bank] = 1;
-        successor_state.array[Cabbage] = 1;
-        set.add(successor_state);
-      }
+
     }
     return set;
   }

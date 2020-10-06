@@ -52,16 +52,25 @@ public class Search {
 		return GraphSearch(new FrontierPriorityQueue(new ComparatorF(problem)));
 	}
 
-	
 	//Iterative deepening, tree-search and graph-search
 	public String IterativeDeepeningTreeSearch() {
 		//TODO
+		for (int i = 0; ; i++){
+			String r = this.TreeSearchDepthLimited(new FrontierLIFO(), i);
+			if (r != null){
+				return r
+			}
+		}
+
 		return null;
 	}
 	
 	public String IterativeDeepeningGraphSearch() {
 		//TODO
-		return null;	
+		for (int i = 0; ; i++){
+			String r = this.GraphSearchDepthLimited(new FrontierLIFO(), i);
+			if (r != null){ return r }
+		}
 	}
 	
 	//For statistics purposes
