@@ -8,10 +8,8 @@ import java.util.Set;
 public class Search {
 	Problem problem;
 	
-	public Search(Problem problem) { 
-		this.problem = problem; 
-	}
-
+	public Search(Problem problem) { this.problem = problem; }
+	
 	//Tree-search methods
 	public String BreadthFirstTreeSearch() {
 		return TreeSearch(new FrontierFIFO());
@@ -57,10 +55,7 @@ public class Search {
 	
 	//Iterative deepening, tree-search and graph-search
 	public String IterativeDeepeningTreeSearch() {
-		
 		//TODO
-
-
 		return null;
 	}
 	
@@ -73,6 +68,7 @@ public class Search {
 	int cnt; //count expansions
 	List<Node> node_list; //store all nodes ever generated
 	Node initialNode; //initial node based on initial state
+	//
 	
 	private String TreeSearch(Frontier frontier) {
 		cnt = 0; 
@@ -83,10 +79,15 @@ public class Search {
 		
 		frontier.insert( initialNode );
 		while(true) {
-			if(frontier.isEmpty()) return null;
+			
+			if(frontier.isEmpty())
+				return null;
+			
 			Node node = frontier.remove();
+			
 			if( problem.goal_test(node.state) )
 				return Solution(node);
+			
 			frontier.insertAll(Expand(node,problem));
 			cnt++;
 		}
@@ -102,12 +103,15 @@ public class Search {
 		Set<Object> explored = new HashSet<Object>(); //empty set
 		frontier.insert( initialNode );
 		while(true) {
+			
 			if(frontier.isEmpty())
 				return null;
 			
 			Node node = frontier.remove();
+			
 			if( problem.goal_test(node.state) )
 				return Solution(node);
+			
 			if( !explored.contains(node.state) ) {
 				explored.add(node.state);
 				frontier.insertAll(Expand(node,problem));
@@ -118,12 +122,64 @@ public class Search {
 	
 	private String TreeSearchDepthLimited(Frontier frontier, int limit) {
 		//TODO
-		return null;
+
+		cnt = 0; 
+		node_list = new ArrayList<Node>();
+		
+		initialNode = MakeNode(problem.initialState); 
+		node_list.add( initialNode );
+		
+		frontier.insert( initialNode );
+		while(true) {
+			
+			if(frontier.isEmpty())
+				return null;
+			
+			Node node = frontier.remove();
+			
+			if( problem.goal_test(node.state) )
+				return Solution(node);
+			
+			if(node.depth < limit){
+				frontier.insertAll(Expand(node,problem));
+				cnt++;
+			}
+
+			
+		}
 	}
 
 	private String GraphSearchDepthLimited(Frontier frontier, int limit) {
 		//TODO
-		return null;	
+		
+		cnt = 0; 
+		node_list = new ArrayList<Node>();
+		
+		initialNode = MakeNode(problem.initialState); 
+		node_list.add( initialNode );
+		
+		Set<Object> explored = new HashSet<Object>(); //empty set
+		frontier.insert( initialNode );
+		while(true) {
+			
+			if(frontier.isEmpty())
+				return null;
+			
+			Node node = frontier.remove();
+			
+			if( problem.goal_test(node.state) )
+				return Solution(node);
+			
+			if( !explored.contains(node.state) ) {
+				explored.add(node.state);
+
+					if(node.depth < limit) {
+						frontier.insertAll(Expand(node,problem));
+						cnt++;
+					}
+			}
+		}
+
 	}
 
 	private Node MakeNode(Object state) {
