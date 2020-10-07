@@ -34,7 +34,7 @@ public class ProblemPancakes extends Problem {
     for(int i = n; i < (length + n) / 2; i++) {
       int temp = pancakesCopy[i];
       pancakesCopy[i] = pancakesCopy[length - i + n - 1];
-      test[test.length - i + n - 1] = temp;
+      pancakesCopy[length - i + n - 1] = temp;
     }
     return pancakesCopy;
   }
