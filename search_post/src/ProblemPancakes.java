@@ -8,9 +8,9 @@ public class ProblemPancakes extends Problem {
   boolean goal_test(Object state){
     StatePancakes pstate = (StatePancakes) state;
     boolean result = false;
-    // for (int i = 0; i < pstate.n; i++){
-    //   result &= (i==pstate.pancakesArray[i]);
-    // }
+    for (int i = 0; i < pstate.n; i++){
+      result &= (i==pstate.pancakesArray[i]);
+    }
     return result;
   }
 
@@ -20,11 +20,23 @@ public class ProblemPancakes extends Problem {
     StatePancakes s = (StatePancakes) state;
     StatePancakes successor_state;
 
-    for(int i = 0; i < s.n; i++){
-      System.out.println("i : " + s.pancakesArray[i]);
+    for(int i = 1; i < s.n; i++){
+      successor_state = flipPancakes(i, s.array);
+      set.add(successor_state);
     }
 
     return set;
+  }
+
+  int[] flipPancakes(int n, int[] pancakes) {
+    int[] pancakesCopy = pancakes.clone();
+    int length = pancakesCopy.length;
+    for(int i = n; i < (length + n) / 2; i++) {
+      int temp = pancakesCopy[i];
+      pancakesCopy[i] = pancakesCopy[length - i + n - 1];
+      test[test.length - i + n - 1] = temp;
+    }
+    return pancakesCopy;
   }
 
   double step_cost(Object fromState, Object toState) { return 1; }
