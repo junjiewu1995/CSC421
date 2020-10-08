@@ -79,8 +79,6 @@ public class ProblemFarmer extends Problem {
         successor_state.array[Cabbage] = 0;
         set.add(successor_state);
       }
-
-
     }
     return set;
   }
@@ -122,7 +120,7 @@ public class ProblemFarmer extends Problem {
 		System.out.println("AstarGraphSearch:\t\t" + search.AstarGraphSearch());
 		
 		System.out.println("\n\nIterativeDeepening----------------------");
-		//System.out.println("IterativeDeepeningTreeSearch:\t" + search.IterativeDeepeningTreeSearch());
-		//System.out.println("IterativeDeepeningGraphSearch:\t" + search.IterativeDeepeningGraphSearch());
+		System.out.println("IterativeDeepeningTreeSearch:\t" + search.IterativeDeepeningTreeSearch());
+		System.out.println("IterativeDeepeningGraphSearch:\t" + search.IterativeDeepeningGraphSearch());
   }
 }
