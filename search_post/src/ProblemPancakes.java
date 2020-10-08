@@ -21,6 +21,7 @@ public class ProblemPancakes extends Problem {
     StatePancakes successor_state;
 
     for(int i = 1; i < s.n; i++){
+
       successor_state = new StatePancakes(s);
       int [] t = flipPancakes(0, i, s.pancakesArray);
       for (int k = 0; k < t.length; k++) { 
@@ -42,6 +43,7 @@ public class ProblemPancakes extends Problem {
       }      
       return pancakesArrayCopy;
   } 
+
 
   double step_cost(Object fromState, Object toState) { return 1; }
 
