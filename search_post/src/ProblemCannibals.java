@@ -4,107 +4,107 @@ import java.util.Set;
 public class ProblemCannibals extends Problem {
 
     static final int cannL = 0;
-    static final int missL = 1;
-    static final int boatL = 2;
     static final int cannR = 3;
+    static final int missL = 1;
     static final int missR = 4;
+    static final int boatL = 2;
     static final int boatR = 5;
     
+    
 	boolean goal_test(Object state) {
-        StateCannibals can_state = (StateCannibals) state;
-        if (can_state.canArray[cannR]==3 && can_state.canArray[missR]==3 && can_state.canArray[boatR]==1) return true;
+        StateCannibals s = (StateCannibals) state;
+        if (s.array[cannR]==3 && s.array[missR]==3 && s.array[boatR]==1) return true;
         else return false;
 	}
   
     Set<Object> getSuccessors(Object state) {
     	
         Set<Object> set = new HashSet<Object>();
-        StateCannibals can_state = (StateCannibals) state;
-        // Let's create without any constraint, then remove the illegal ones
+        StateCannibals s= (StateCannibals) state;
         StateCannibals successor_state;
         
-        // one cannibal only from left to right
-        successor_state = new StateCannibals(can_state);
-        successor_state.canArray[cannL] -= 1;
-        successor_state.canArray[cannR] += 1;
-        successor_state.canArray[boatL] -= 1;
-        successor_state.canArray[boatR] += 1;
+        // 1 cannibal only from left to right
+        successor_state = new StateCannibals(s);
+        successor_state.array[cannL] -= 1;
+        successor_state.array[cannR] += 1;
+        successor_state.array[boatL] -= 1;
+        successor_state.array[boatR] += 1;
         if (isValid(successor_state)) set.add(successor_state);
 
-        // one cannibal only from right to left
-        successor_state = new StateCannibals(can_state);
-        successor_state.canArray[cannL] += 1;
-        successor_state.canArray[cannR] -= 1;
-        successor_state.canArray[boatL] += 1;
-        successor_state.canArray[boatR] -= 1;
+        // 1 cannibal only from right to left
+        successor_state = new StateCannibals(s);
+        successor_state.array[cannL] += 1;
+        successor_state.array[cannR] -= 1;
+        successor_state.array[boatL] += 1;
+        successor_state.array[boatR] -= 1;
         if (isValid(successor_state)) set.add(successor_state);        
         
-        // two cannibals from left to right
-        successor_state = new StateCannibals(can_state);
-        successor_state.canArray[cannL] -= 2;
-        successor_state.canArray[cannR] += 2;
-        successor_state.canArray[boatL] -= 1;
-        successor_state.canArray[boatR] += 1;
+        // 2 cannibals from left to right
+        successor_state = new StateCannibals(s);
+        successor_state.array[cannL] -= 2;
+        successor_state.array[cannR] += 2;
+        successor_state.array[boatL] -= 1;
+        successor_state.array[boatR] += 1;
         if (isValid(successor_state)) set.add(successor_state);
         
-        // two cannibals from right to left
-        successor_state = new StateCannibals(can_state);
-        successor_state.canArray[cannL] += 2;
-        successor_state.canArray[cannR] -= 2;
-        successor_state.canArray[boatL] += 1;
-        successor_state.canArray[boatR] -= 1;
+        // 2 cannibals from right to left
+        successor_state = new StateCannibals(s);
+        successor_state.array[cannL] += 2;
+        successor_state.array[cannR] -= 2;
+        successor_state.array[boatL] += 1;
+        successor_state.array[boatR] -= 1;
         if (isValid(successor_state)) set.add(successor_state);
         
-        // one missionary only from left to right
-        successor_state = new StateCannibals(can_state);
-        successor_state.canArray[missL] -= 1;
-        successor_state.canArray[missR] += 1;
-        successor_state.canArray[boatL] -= 1;
-        successor_state.canArray[boatR] += 1;
+        // 1 missionary only from left to right
+        successor_state = new StateCannibals(s);
+        successor_state.array[missL] -= 1;
+        successor_state.array[missR] += 1;
+        successor_state.array[boatL] -= 1;
+        successor_state.array[boatR] += 1;
         if (isValid(successor_state)) set.add(successor_state);
         
-        // one missionary only from right to left
-        successor_state = new StateCannibals(can_state);
-        successor_state.canArray[missL] += 1;
-        successor_state.canArray[missR] -= 1;
-        successor_state.canArray[boatL] += 1;
-        successor_state.canArray[boatR] -= 1;
+        // 1 missionary only from right to left
+        successor_state = new StateCannibals(s);
+        successor_state.array[missL] += 1;
+        successor_state.array[missR] -= 1;
+        successor_state.array[boatL] += 1;
+        successor_state.array[boatR] -= 1;
         if (isValid(successor_state)) set.add(successor_state);
         
-        // two missionaries from left to right
-        successor_state = new StateCannibals(can_state);
-        successor_state.canArray[missL] -= 2;
-        successor_state.canArray[missR] += 2;
-        successor_state.canArray[boatL] -= 1;
-        successor_state.canArray[boatR] += 1;
+        // 2 missionaries from left to right
+        successor_state = new StateCannibals(s);
+        successor_state.array[missL] -= 2;
+        successor_state.array[missR] += 2;
+        successor_state.array[boatL] -= 1;
+        successor_state.array[boatR] += 1;
         if (isValid(successor_state)) set.add(successor_state);
         
-        // two missionaries from right to left
-        successor_state = new StateCannibals(can_state);
-        successor_state.canArray[missL] += 2;
-        successor_state.canArray[missR] -= 2;
-        successor_state.canArray[boatL] += 1;
-        successor_state.canArray[boatR] -= 1;
+        // 2 missionaries from right to left
+        successor_state = new StateCannibals(s);
+        successor_state.array[missL] += 2;
+        successor_state.array[missR] -= 2;
+        successor_state.array[boatL] += 1;
+        successor_state.array[boatR] -= 1;
         if (isValid(successor_state)) set.add(successor_state);
         
-        // one cannibal and one missionary from left to right
-        successor_state = new StateCannibals(can_state);
-        successor_state.canArray[cannL] -= 1;
-        successor_state.canArray[cannR] += 1;
-        successor_state.canArray[missL] -= 1;
-        successor_state.canArray[missR] += 1;
-        successor_state.canArray[boatL] -= 1;
-        successor_state.canArray[boatR] += 1;
+        // 1 cannibal and 1 missionary from left to right
+        successor_state = new StateCannibals(s);
+        successor_state.array[cannL] -= 1;
+        successor_state.array[cannR] += 1;
+        successor_state.array[missL] -= 1;
+        successor_state.array[missR] += 1;
+        successor_state.array[boatL] -= 1;
+        successor_state.array[boatR] += 1;
         if (isValid(successor_state)) set.add(successor_state);
         
-        // one cannibal and one missionary from right to left
-        successor_state = new StateCannibals(can_state);
-        successor_state.canArray[cannL] += 1;
-        successor_state.canArray[cannR] -= 1;
-        successor_state.canArray[missL] += 1;
-        successor_state.canArray[missR] -= 1;
-        successor_state.canArray[boatL] += 1;
-        successor_state.canArray[boatR] -= 1;
+        // 1 cannibal and 1 missionary from right to left
+        successor_state = new StateCannibals(s);
+        successor_state.array[cannL] += 1;
+        successor_state.array[cannR] -= 1;
+        successor_state.array[missL] += 1;
+        successor_state.array[missR] -= 1;
+        successor_state.array[boatL] += 1;
+        successor_state.array[boatR] -= 1;
         if (isValid(successor_state)) set.add(successor_state);
         
         return set;
@@ -114,19 +114,19 @@ public class ProblemCannibals extends Problem {
     {   
         // Checking to see if any element of the array is negative 
         for (int i=0; i<6; i++)
-            if (state.canArray[i] < 0) return false;
+            if (state.array[i] < 0) return false;
         
         // Checking to see if the numbers of cannibals, missionaries, and boat are more then 3,3,1 respectively
-        if (state.canArray[cannL] > 3) return false;
-        if (state.canArray[cannR] > 3) return false;
-        if (state.canArray[missL] > 3) return false;
-        if (state.canArray[missR] > 3) return false;
-        if (state.canArray[boatL] > 1) return false;
-        if (state.canArray[boatR] > 1) return false;
+        if (state.array[cannL] > 3) return false;
+        if (state.array[cannR] > 3) return false;
+        if (state.array[missL] > 3) return false;
+        if (state.array[missR] > 3) return false;
+        if (state.array[boatL] > 1) return false;
+        if (state.array[boatR] > 1) return false;
         
         // Checking if cannibals out number missionaries
-        if (state.canArray[missL] > 0 && state.canArray[cannL] > state.canArray[missL]) return false;
-        if (state.canArray[missR] > 0 && state.canArray[cannR] > state.canArray[missR]) return false;
+        if (state.array[missL] > 0 && state.array[cannL] > state.array[missL]) return false;
+        if (state.array[missR] > 0 && state.array[cannR] > state.array[missR]) return false;
         
         return true;
     }
@@ -134,7 +134,7 @@ public class ProblemCannibals extends Problem {
 	double step_cost(Object fromState, Object toState) { return 1; }
 
 	public double h(Object state) { 
-        StateCannibals cstate = (StateCannibals) state;
+        StateCannibals c = (StateCannibals) state;
         //To come up with a heuristic we solve a relaxed problem. 
         //If we remove the constraint that cannibals eat missionaries, 
         //we can compute how many trips are needed to take everyone across. 
@@ -146,7 +146,7 @@ public class ProblemCannibals extends Problem {
         //For the first n-2 people, we need 2 trips, i.e. 2(n-2) 
         //For the last 2 people, we need only 1 trip. 
         //Total is 2(n-2)+1 = 2n-3
-        return 2*(cstate.canArray[0]+cstate.canArray[1])-3;
+        return 2*(c.array[0]+c.array[1])-3;
 	}
 
 

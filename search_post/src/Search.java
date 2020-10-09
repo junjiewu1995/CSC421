@@ -87,13 +87,11 @@ public class Search {
 		frontier.insert( initialNode );
 
 		while(true) {
-
 			if(frontier.isEmpty()) return null;
 			Node node = frontier.remove();
 
 			if( problem.goal_test(node.state) ) return Solution(node);
 			frontier.insertAll(Expand(node,problem));
-
 			cnt++;
 		}
 	}
@@ -109,13 +107,11 @@ public class Search {
 		frontier.insert( initialNode );
 		while(true) {
 			
-			if(frontier.isEmpty())
-				return null;
+			if(frontier.isEmpty())return null;
 			
 			Node node = frontier.remove();
 			
-			if( problem.goal_test(node.state) )
-				return Solution(node);
+			if( problem.goal_test(node.state) ) return Solution(node);
 			
 			if( !explored.contains(node.state) ) {
 				explored.add(node.state);
@@ -193,12 +189,12 @@ public class Search {
 	
 		node.order = cnt;
 		Set<Node> successors = new HashSet<Node>(); //empty set
-		
 		Set<Object> successor_states = problem.getSuccessors(node.state);
 		
 		for(Object result : successor_states) {
 			Node s = new Node();
 			s.state = result;
+			//System.out.println("s : state " + s.state);
 			s.parent_node = node;
 			s.path_cost = node.path_cost + problem.step_cost(node.state, result); 
 			s.depth = node.depth + 1; 
