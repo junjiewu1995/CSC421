@@ -75,6 +75,7 @@ public class Search {
 	int cnt; //count expansions
 	List<Node> node_list; //store all nodes ever generated
 	Node initialNode; //initial node based on initial state
+
 	
 	private String TreeSearch(Frontier frontier) {
 
@@ -104,7 +105,7 @@ public class Search {
 		initialNode = MakeNode(problem.initialState); 
 		node_list.add( initialNode );
 		
-		Set<Object> explored = new HashSet<Object>(); //empty set
+		Set<Object> explored = new HashSet<Object>();
 		frontier.insert( initialNode );
 		while(true) {
 			
@@ -140,7 +141,6 @@ public class Search {
 				return null;
 			
 			Node node = frontier.remove();
-			
 			if( problem.goal_test(node.state) )
 				return Solution(node);
 			
@@ -148,7 +148,6 @@ public class Search {
 				frontier.insertAll(Expand(node,problem));
 				cnt++;
 			}
-
 			
 		}
 	}
@@ -179,7 +178,6 @@ public class Search {
 					}
 			}
 		}
-
 	}
 
 	private Node MakeNode(Object state) {
@@ -204,8 +202,7 @@ public class Search {
 			s.parent_node = node;
 			s.path_cost = node.path_cost + problem.step_cost(node.state, result); 
 			s.depth = node.depth + 1; 
-			successors.add(s);
-			
+			successors.add(s);			
 			node_list.add(s);
 		}
 		
@@ -214,6 +211,8 @@ public class Search {
 	
 	//Create a string to print solution. 
 	private String Solution(Node node) {
+		// PrintTreeGraph(initialNode);
+
 		String solution_str = "(cost=" + node.path_cost + ", expansions=" + cnt + ")\t";
 		
 		Deque<Object> solution = new ArrayDeque<Object>();
@@ -227,4 +226,16 @@ public class Search {
 		
 		return solution_str;
 	}
+
+	private void PrintTreeGraph(Node n) {
+
+		for(int i=0; i<n.depth; i++){
+			System.out.print("  ");
+		}
+		
+		System.out.println(n.state + "(" + "g=" + n.path_cost + ", " + "h=" + problem.h(n.state) + ", " +  "f=" + (n.path_cost + problem.h(n.state)) +	") " + (n.order!=-1 ? ("order=" + n.order) : "") );
+		
+		for(Node m : node_list){ if(m.parent_node == n){PrintTreeGraph(m);} }
+	}
+
 }

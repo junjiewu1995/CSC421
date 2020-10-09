@@ -1,6 +1,6 @@
 public class StatePancakes {
 
-  static final int n = 10;
+  static final int n = 6;
   int pancakesArray[];
   public StatePancakes(int[] array) { this.pancakesArray = array; }
 
