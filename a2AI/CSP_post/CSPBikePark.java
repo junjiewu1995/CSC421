@@ -14,6 +14,20 @@ public class CSPBikePark extends CSP {
   */
   public boolean isGood (Object X, Object Y, Object x, Object y) {
     
+    //if X is not even mentioned in by the constraints, just return true
+		//as nothing can be violated
+		if(!C.containsKey(X))
+    return true;
+  
+    //check to see if there is an arc between X and Y
+    //if there isn't an arc, then no constraint, i.e. it is good
+    if(!C.get(X).contains(Y))
+      return true;
+    
+    //not equal constraint
+    if(!x.equals(y)) 
+      return true;
+  
     return false;
   }
   
