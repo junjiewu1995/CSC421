@@ -20,7 +20,96 @@ public class CSPBikePark extends CSP {
       return true;
 
     //white is between 15 and youngest
-    if(X.equals("white") && Y.equals("15") && (Integer)x-(Integer)y!=1)
+    if(X.equals("white") && Y.equals("15") && (Integer)x <= (Integer)y)
+      return false;
+    if(X.equals("white") && Y.equals("13") && (Integer)x >= (Integer)y)
+      return false;
+      
+    //henry exactly left of soccer
+    if(X.equals("henry") && Y.equals("soccer") && (Integer)x + 1 != (Integer)y)
+      return false;
+      
+    //grapefruit between tuna and pineapple
+    if(X.equals("grapefruit") && Y.equals("tuna") && (Integer)x <= (Integer)y)
+      return false;
+    if(X.equals("grapefruit") && Y.equals("pineapple") && (Integer)x >= (Integer)y)
+      return false;
+
+    //swimming next to baseball
+    if(X.equals("swimming") && Y.equals("baseball") && Math.abs((Integer)x-(Integer)y)!=1 )
+      return false;
+
+    //pineapple between 14 and orange
+    if(X.equals("pineapple") && Y.equals("14") && (Integer)x <= (Integer)y)
+      return false;
+    if(X.equals("pineapple") && Y.equals("orange") && (Integer)x >= (Integer)y)
+      return false;
+
+    //hockey eats pepperoni.
+		if(X.equals("hockey") && Y.equals("pepperoni") && !x.equals(y))
+      return false;
+
+    //pineapple between 14 and orange
+    if(X.equals("white") && Y.equals("blue") && (Integer)x <= (Integer)y)
+      return false;
+    if(X.equals("white") && Y.equals("black") && (Integer)x >= (Integer)y)
+      return false;
+    
+    //joel next to 16
+    if(X.equals("joel") && Y.equals("16") && Math.abs((Integer)x-(Integer)y)!=1 )
+      return false;
+
+    //adrian exactly left of pepperoni
+    if(X.equals("adrian") && Y.equals("pepperoni") && (Integer)x + 1 != (Integer)y)
+      return false;
+
+    //12 between 14 and 16
+    if(X.equals("12") && Y.equals("14") && (Integer)x <= (Integer)y)
+      return false;
+    if(X.equals("12") && Y.equals("16") && (Integer)x >= (Integer)y)
+      return false;
+
+    //bacon somewhere right of  white
+    if(X.equals("bacon") && Y.equals("white") && (Integer)x <= (Integer)y )
+      return false;
+
+    //16 eats cheese.
+		if(X.equals("16") && Y.equals("cheese") && !x.equals(y))
+      return false;
+
+    //white between richard and red
+    if(X.equals("white") && Y.equals("richard") && (Integer)x <= (Integer)y)
+      return false;
+    if(X.equals("white") && Y.equals("red") && (Integer)x >= (Integer)y)
+      return false;
+
+    //baseball next to apple
+    if(X.equals("baseball") && Y.equals("apple") && Math.abs((Integer)x-(Integer)y)!=1 )
+      return false;
+
+    //charles between richard and adrian
+    if(X.equals("charles") && Y.equals("richard") && (Integer)x <= (Integer)y)
+      return false;
+    if(X.equals("charles") && Y.equals("adrian") && (Integer)x >= (Integer)y)
+      return false;
+
+
+    if(varBike.contains(X) && varBike.contains(Y) && !X.equals(Y) && x.equals(y))
+			return false;
+		
+		if(varName.contains(X) && varName.contains(Y) && !X.equals(Y) && x.equals(y))
+			return false;
+		
+		if(varSandwich.contains(X) && varSandwich.contains(Y) && !X.equals(Y) && x.equals(y))
+			return false;
+		
+		if(varJuice.contains(X) && varJuice.contains(Y) && !X.equals(Y) && x.equals(y))
+			return false;
+		
+		if(varAge.contains(X) && varAge.contains(Y) && !X.equals(Y) && x.equals(y))
+			return false;
+
+    if(varSport.contains(X) && varSport.contains(Y) && !X.equals(Y) && x.equals(y))
 			return false;
 
 		return true;
@@ -64,12 +153,12 @@ public class CSPBikePark extends CSP {
 				
     //The cyclist who is going to eat Tuna sandwich is at one of the ends.
 		for(int i=1; i<=5; i++)
-			if(i != 1 || i != 5)
+			if(i != 1 && i != 5)
         csp.D.get("tuna").remove(i);
         
     //green bikes at one of the ends
 		for(int i=1; i<=5; i++)
-      if(i != 1 || i != 5)
+      if(i != 1 && i != 5)
         csp.D.get("green").remove(i);
 		
 		//black bike is third
